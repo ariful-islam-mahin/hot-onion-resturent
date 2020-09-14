@@ -12,7 +12,7 @@ const Navbar = () => {
             <div className=' col-6 d-flex justify-content-end align-items-center'>
                 <FontAwesomeIcon  icon={faShoppingCart} />
                 <button className='btn '>Login</button>
-                <button className='btn btn-danger'>Sign up</button>
+                <button className='btn btn-danger rounded-pill'>Sign up</button>
             </div>
         </div>
     );
