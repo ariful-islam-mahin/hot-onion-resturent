@@ -27,6 +27,13 @@ function App() {
   });
   return (
     <UserContext.Provider value={[user, setUser]}>
+        {
+          user.success  && 
+          <div>
+            <h3>Name: {user.name}</h3>
+            <h4>Email: {user.email}</h4>
+          </div>
+        }
       <Router>
         <Switch>
           <Route path='/home'>

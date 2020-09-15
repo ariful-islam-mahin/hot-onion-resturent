@@ -35,6 +35,7 @@ const Login = () => {
             const signedInUser = {...user};
             signedInUser.email = email;
             signedInUser.name = displayName;
+            signedInUser.success = true;
             setUser(signedInUser)
             history.replace(from);
             
@@ -46,17 +47,18 @@ const Login = () => {
 
     const fbSignIn = () => {
         const fbProvider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithPopup(fbProvider).then(function(result) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            console.log(user)
+        firebase.auth().signInWithPopup(fbProvider)
+        .then(res => {
+            const {displayName, email} = res.user;
+            const signedInUser = {...user};
+            signedInUser.email = email;
+            signedInUser.name = displayName;
+            signedInUser.success = true;
+            setUser(signedInUser)
+            history.replace(from);
             // ...
           })
-          .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
+          .catch(error => {
             var errorMessage = error.message;
             // The email of the user's account used.
             var email = error.email;
@@ -92,9 +94,9 @@ const Login = () => {
                 const newUserInfo = {...user};
                 newUserInfo.error = '';
                 newUserInfo.success = true;
-                updateUserName(user.name);
                 history.replace(from);
-                setUser(newUserInfo)
+                setUser(newUserInfo);
+                updateUserName(user.name);
             })
             .catch(function(error) {
                 // Handle Errors here.
@@ -112,7 +114,8 @@ const Login = () => {
                 newUserInfo.success = true;
                 updateUserName(user.name);
                 history.replace(from);
-                setUser(newUserInfo)
+                setUser(newUserInfo);
+                console.log(res)
             })
             .catch(function(error) {
                 // Handle Errors here.
